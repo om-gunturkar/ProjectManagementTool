@@ -33,16 +33,16 @@ const PendingPage = () => {
     <div className={layoutClasses.container}>
       <div className={layoutClasses.headerWrapper}>
         <div>
-          <h1 className='text-2xl md:text-3xl font-bold text-gray-800 flex items-center gap-2'>
-            <ListChecks className='text-purple-500'/>Pending Tasks
+          <h1 className='text-2xl md:text-3xl font-bold bg-gradient-to-r from-blue-500 to-green-400 bg-clip-text text-transparent flex items-center gap-2'>
+            <ListChecks className='text-green-500'/>Pending Tasks
           </h1>
           <p className='text-sm text-gray-500 mt-1 ml-7 '>
-            {sortedPendingTasks.length} task{sortedPendingTasks !== 1 && 's'}Needing Your Attention
+            {sortedPendingTasks.length} task{sortedPendingTasks !== 1 && 's'}  Needing Your Attention
           </p>
         </div>
           <div className={layoutClasses.sortBox}>
             <div className='flex items-center gap-2 text-gray-700 font-medium'>
-              <Filter className='w-4 h-4 text-purple-500'/>
+              <Filter className='w-4 h-4 text-blue-500'/>
               <span className='text-sm'>Sort By :</span>
 
             </div>
@@ -67,9 +67,9 @@ const PendingPage = () => {
       </div>
 
       <div className={layoutClasses.addBox} onClick={()=>setShowModal(true)}
-        ><div className='flex items-center justify-center gap-3 text-gray-50 group-hover:text-purple-600 transition-colors'>
-          <div className='w-8 h-8 rounded-full bg-white flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-200'>
-            <Plus className='text-purple-500' size={18}/>
+        ><div className='flex items-center justify-center gap-3 text-gray-50 group-hover:text-blue-400 transition-colors'>
+          <div className='w-8 h-8 rounded-full bg-gray-800 flex items-center justify-center shadow-sm group-hover:shadow-md transition-all duration-200'>
+            <Plus className='text-blue-500' size={18}/>
 
           </div>
           <span className='font-medium'>
@@ -84,9 +84,9 @@ const PendingPage = () => {
                 <div className={layoutClasses.emptyState}>
                   <div className='min-w-xs mx-auto py-6'>
                     <div className={layoutClasses.emptyIconBg}>
-                      <Clock className='w-8 h-8 text-purple-500'/>
+                      <Clock className='w-8 h-8 text-blue-500'/>
                     </div>
-                    <h3 className='text-lg font-semibold text-gray-800 mb-2'>All Caught Up</h3>
+                    <h3 className='text-lg font-semibold text-gray-500 mb-2'>All Caught Up</h3>
                     <p className='text-sm text-gray-500 mb-4'>
                       No pending tasks - Great Work
                     </p>

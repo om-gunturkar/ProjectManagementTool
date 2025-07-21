@@ -7,11 +7,11 @@ import { MESSAGE_ERROR } from '../assets/dummy'
 import axios from 'axios'
 import { BUTTONCLASSES } from '../assets/dummy'
 
-  const API_URL = "http://localhost:4000"
-  const INITIAL_FORM = { name: "", email: "", password: "" }
+const API_URL = "http://localhost:4000"
+const INITIAL_FORM = { name: "", email: "", password: "" }
 
-  
-const SignUp = ( onSwitchMode) => {
+
+const SignUp = ( {onSwitchMode}) => {
 
   const [formData,setFormData]=useState(INITIAL_FORM);
   const [loading,setLoading]=useState(false);
@@ -42,7 +42,8 @@ const FIELDS = [
   return (
     <div className='max-w-md w-full bg-white shadow-lg border border-purple-100 rounded-xl p-8'>
       <div className='mb-6 text-center'>
-        <div className='w-16 h-16 bg-gradient-to-br from-fuchsia-500 to-purple-600 rounded-full mx-auto flex items-center justify-center mb-4'>
+        {/* Changed gradient colors here */}
+        <div className='w-16 h-16 bg-gradient-to-br from-blue-500 to-green-500 rounded-full mx-auto flex items-center justify-center mb-4'>
           <UserPlus className='w-8 h-8 text-white' />
         </div>
         <h2 className='text-2xl font-bold text-gray-800'>
@@ -60,20 +61,23 @@ const FIELDS = [
       <form action="" onSubmit={handleSubmit} className='space-y-4'>
         {FIELDS.map(({name,type,placeholder,icon:Icon})=>(
           <div key={name} className={Inputwrapper}>
-            <Icon className='text-purple-500 w-5 mr-2 '/>
+            {/* Changed icon color here */}
+            <Icon className='text-blue-500 w-5 mr-2 '/>
 
             <input type={type} placeholder={placeholder} value={formData[name]} onChange={(e)=>setFormData({...formData,[name]:e.target.value})}  className='w-full focus:outline-none text-sm text-gray-700' required/>
           </div>
         ))}
 
-        <button type='submit' className={BUTTONCLASSES} disabled={loading}>
+        {/* Updated BUTTONCLASSES to match the gradient in the login button */}
+        <button type='submit' className="w-full py-2 px-4 rounded-lg text-white font-semibold flex items-center justify-center space-x-2 transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 bg-gradient-to-br from-blue-500 to-green-500 hover:from-blue-600 hover:to-green-600 focus:ring-blue-500" disabled={loading}>
           {loading ? "Signing Up ..." : <><UserPlus className='w-4 h-4'/>Sign Up</>}
         </button>
       </form>
 
       <p className='text-center text-sm text-gray-600 mt-6'>
         Already Have An Account ?
-        <button onClick={onSwitchMode} className='text-purple-600 hover:text-purple-700 hover:underline font-medium transition-colors'>Login</button>
+        {/* Changed link color here */}
+        <button onClick={onSwitchMode} className='text-blue-600 hover:text-blue-700 hover:underline font-medium transition-colors'>Login</button>
 
       </p>
     </div>

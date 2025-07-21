@@ -10,7 +10,6 @@ const API_BASE = 'http://localhost:4000/api/tasks'
 
 const Dashboard = () => {
 
-
   const { tasks, refreshTasks } = useOutletContext()
   const [showModal, setShowModal] = useState(false)
   const [selectedTasks, setSelectTask] = useState(null)
@@ -26,7 +25,7 @@ const Dashboard = () => {
     )).length
   }), [tasks]);
 
-
+  
   //FILTER TASKS
   const filteredTasks = useMemo(() => tasks.filter(task => {
     const dueDate = new Date(task.DueDate);
@@ -43,7 +42,6 @@ const Dashboard = () => {
       case "medium":
       case "low":
         return task.priority?.toLowerCase() === filter;
-
 
       default:
         return true; // 'all' or any other case, return all tasks
@@ -64,28 +62,26 @@ const Dashboard = () => {
     }
   }, [refreshTasks]);
 
-
-
   return (
-    <div className={WRAPPER}>
+    <div className="bg-[#0f172a] min-h-screen px-4 py-6 md:px-8 md:py-5 text-white">
       {/* Header */}
       <div className={HEADER}>
         <div className="min-w-0">
-          <h1 className='text-xl md:text-3xl font-bold text-gray-800 flex items-center gap-2'>
-            <HomeIcon className='w-5 h-5 md:w-6 md:h-6 shrink-0 text-purple-500' />
-            <span className='truncate'>Task Overview</span>
+          <h1 className='text-xl md:text-3xl font-bold text-white flex items-center gap-2'>
+            <HomeIcon className='w-7 h-7 mt-1 mr-2 md:w-6 md:h-6 shrink-0 text-purple-400' />
+            <span className='truncate bg-gradient-to-r from-blue-500 to-green-400 bg-clip-text text-transparent'>Task Overview</span>
           </h1>
-          <p className='text-sm text-gray-50 mt-1 ml-7 truncate'>Manage Your Tasks Efficiently</p>
+          <p className='text-sm text-gray-300 mt-1 ml-7 truncate'>Manage Your Tasks Efficiently</p>
         </div>
-        <button onClick={() => setShowModal(true)} className={ADD_BUTTON}>
-          <Plus size={18} />
-          Add New Task
+        <button onClick={() => setShowModal(true)} className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded shadow-lg flex items-center gap-1 transition">
+          <Plus size={18} /> Add New Task
         </button>
       </div>
+
       {/* STATS */}
       <div className={STATS_GRID}>
-        {STATS.map(({ key, label, icon: Icon, iconColor, borderColor = "border-purple-100", valueKey, textColor, gradient }) => (
-          <div key={key} className={`${STAT_CARD} ${borderColor}`}>
+        {STATS.map(({ key, label, icon: Icon, iconColor, borderColor = "border-red-600", valueKey, textColor, gradient }) => (
+          <div key={key} className={`${STAT_CARD} bg-slate-800 border ${borderColor}`}>
             <div className='flex items-center gap-2 md:gap-3'>
               <div className={`${ICON_WRAPPER} ${iconColor}`}>
                 <Icon className='w-4 h-4 md:w-5 md:h-5' />
@@ -93,9 +89,9 @@ const Dashboard = () => {
 
               <div className="min-w-0">
                 <p className={`${VALUE_CLASS} ${gradient ?
-                  "bg-gradient-to-r from-fuchsia-500 to-purple-600 bg-clip-text text-transparent" : textColor}`}>{stats[valueKey]}
+                  "bg-gradient-to-r from-blue-400 to-green-400 bg-clip-text text-transparent" : textColor}`}>{stats[valueKey]}
                 </p>
-                <p className={LABEL_CLASS}>{label}</p>
+                <p className="text-gray-300 text-sm">{label}</p>
               </div>
             </div>
           </div>
@@ -107,8 +103,8 @@ const Dashboard = () => {
         {/* FILTER */}
         <div className={FILTER_WRAPPER}>
           <div className="flex items-center gap-2 min-h-0">
-            <Filter className='w-5 h-5 text-purple-500 shrink-0' />
-            <h2 className='text-base md:text-lg font-semibold text-gray-800 truncate'>
+            <Filter className='w-5 h-5 text-blue-400 shrink-0' />
+            <h2 className='text-base md:text-lg font-semibold text-white truncate'>
               {FILTER_LABELS[filter]}
             </h2>
           </div>
@@ -131,18 +127,19 @@ const Dashboard = () => {
         {/* TASK LIST */}
         <div className="space-y-4">
           {filteredTasks.length === 0 ? (
-            <div className={EMPTY_STATE.wrapper}>
-              <div className={EMPTY_STATE.iconWrapper}>
-                <Calendar className="w-8 h-8 text-purple-500" />
+            <div className="text-center bg-slate-800 p-6 rounded-xl">
+              <div className="flex justify-center">
+                <div className="bg-blue-500 hover:bg-blue-600 p-3 rounded-full">
+                  <Calendar className="w-8 h-8 text-white" />
+                </div>
               </div>
-              <h3 className='text-lg font-semibold mb-2 text-gray-800'>
+              <h3 className='text-lg font-semibold mb-2 text-white'>
                 No Tasks Found
               </h3>
-              <p className='text-sm text-gray-500 mb-4 '>{filter === "all" ? "Create Your first tasks to get started" : "No task"}</p>
-              <button onClick={() => setShowModal(true)} className={EMPTY_STATE.btn}>
+              <p className='text-sm text-gray-300 mb-4'>{filter === "all" ? "Create your first tasks to get started" : "No task"}</p>
+              <button onClick={() => setShowModal(true)} className="bg-blue-500  cursor-pointer hover:bg-blue-600 text-white font-medium py-2 px-4 rounded">
                 Add New Task
               </button>
-
             </div>
           ) : (
             filteredTasks.map(task => (
@@ -158,12 +155,13 @@ const Dashboard = () => {
             ))
           )}
         </div>
+
         {/* ADD Task Desktop */}
         <div
           onClick={() => setShowModal(true)}
-          className="hidden md:flex items-center justify-center p-4 border-2 border-dashed border-purple-200 rounded-xl hover:border-purple-400 bg-purple-50/50 cursor-pointer transition-colors">
-          <Plus className='w-5 h-5 text-purple-500 mr-2' />
-          <span className='text-gray-600 font-medium'>Add New Tasks</span>
+          className="hidden md:flex items-center justify-center p-4 border-2 border-dashed border-blue-300 rounded-xl hover:border-blue-500 bg-slate-800 cursor-pointer transition-colors">
+          <Plus className='w-5 h-5 text-blue-400 mr-2' />
+          <span className='text-white font-medium'>Add New Tasks</span>
         </div>
       </div>
 

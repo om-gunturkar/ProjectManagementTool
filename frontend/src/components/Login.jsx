@@ -1,65 +1,65 @@
-import { Eye, EyeOff, LogIn, Mail, User,Lock } from 'lucide-react';
+import { Eye, EyeOff, LogIn, Mail, User, Lock } from 'lucide-react';
 import React, { useEffect, useState } from 'react';
-import { useNavigate} from 'react-router-dom'
+import { useNavigate } from 'react-router-dom'
 import { toast, ToastContainer } from 'react-toastify';
 import axios from 'axios';
 import { BUTTONCLASSES, INPUTWRAPPER } from '../assets/dummy';
 
-const INITIAL_FORM = {email: "", password: "" }
+const INITIAL_FORM = { email: "", password: "" }
 
-const Login = ({onSubmit,onSwitchMode}) => {
-  const [loading,setLoading] = useState(false)
-  const [formData,setFormData] = useState(INITIAL_FORM)
-  const [showPassword,setShowPassword] = useState(false)
-  const [rememberMe,setRememberMe] = useState(false)
+const Login = ({ onSubmit, onSwitchMode }) => {
+  const [loading, setLoading] = useState(false)
+  const [formData, setFormData] = useState(INITIAL_FORM)
+  const [showPassword, setShowPassword] = useState(false)
+  const [rememberMe, setRememberMe] = useState(false)
 
   const navigate = useNavigate()
   const url = "http://localhost:4000"
 
-  useEffect(()=>{
+  useEffect(() => {
     const token = localStorage.getItem("token")
     const userId = localStorage.getItem("userId")
-    if(token){
-      (async ()=>{
+    if (token) {
+      (async () => {
         try {
-          const {data} = await axios.get(`${url}/api/user/me`,{
-            headers:{Authorization:`Bearer ${token}`}
+          const { data } = await axios.get(`${url}/api/user/me`, {
+            headers: { Authorization: `Bearer ${token}` }
           })
-          if(data.success){
-            onSubmit?.({token,userId, ...data.user})
+          if (data.success) {
+            onSubmit?.({ token, userId, ...data.user })
             toast.success("Success restored. Redirecting ...")
             navigate('/')
-          }else{
+          } else {
             localStorage.clear()
           }
-        } catch{
+        } catch {
           localStorage.clear()
         }
       })
     }
   })
 
-  const handleSubmit =async (e)=>{
+  const handleSubmit = async (e) => {
     e.preventDefault()
-    if(!rememberMe){
+    if (!rememberMe) {
       toast.error('Yours Must enable "Remember Me" to login.')
       return
     }
     setLoading(true)
-    try{
-      const {data} = await axios.post(`${url}/api/user/login`,formData)
-      if(!data.token) throw new Error(data.message||"Login Failed")
+    try {
+      const { data } = await axios.post(`${url}/api/user/login`, formData)
+      if (!data.token) throw new Error(data.message || "Login Failed")
 
-        localStorage.setItem("token",data.token)
-        localStorage.setItem("userId",data.user.id)
-        setFormData(INITIAL_FORM)
-        onSubmit?.({token:data.token,userId:data.user.id, ...data.user})
-        toast.success("Login Successfull ! Redirecting ...")
-        setTimeout(()=>navigate('/'),1000)
-    }catch(err){
+      localStorage.setItem("token", data.token)
+      localStorage.setItem("userId", data.user.id)
+      setFormData(INITIAL_FORM)
+      onSubmit?.({ token: data.token, userId: data.user.id, ...data.user })
+      toast.success("Login Successfull ! Redirecting ...")
+      setTimeout(() => navigate('/'), 1000)
+    } catch (err) {
       const msg = err.response?.data?.message || err.message
       toast.error(msg)
-    }finally{
+    } finally {
       setLoading(false)
     }
   }
@@ -70,17 +70,17 @@ const Login = ({onSubmit,onSwitchMode}) => {
   }
 
   const FIELDS = [
-    
+
     { name: "email", type: "email", placeholder: "Email", icon: Mail },
-    { name: "password", type: "password", placeholder: "Password", icon: Lock ,isPassword:true},
-]
+    { name: "password", type: "password", placeholder: "Password", icon: Lock, isPassword: true },
+  ]
 
   return (
     <div className='max-w-md bg-white w-full shadow-lg border border-purple-100 rounded-xl p-8'>
       <ToastContainer position='top-center' autoClose={3000} hideProgressBar />
 
       <div className='mb-6 text-center'>
-        <div className='w-16 h-16 bg-gradient-to-br from-fuchsia-500 to-purple-600 rounded-full mx-auto flex items-center justify-center mb-4'>
+        <div className='w-16 h-16 bg-gradient-to-br from-blue-500 to-green-500 rounded-full mx-auto flex items-center justify-center mb-4'>
           <LogIn className='w-8 h-8 text-white' />
         </div>
         <h2 className='text-2xl font-bold text-gray-800'>Welcome Back</h2>
@@ -88,39 +88,39 @@ const Login = ({onSubmit,onSwitchMode}) => {
       </div>
 
       <form onSubmit={handleSubmit} className='space-y-4'>
-        {FIELDS.map(({name,type,placeholder, icon:Icon,isPassword})=>(
+        {FIELDS.map(({ name, type, placeholder,icon:Icon, isPassword }) => (
           <div className={INPUTWRAPPER} key={name}>
-            <Icon className='text-purple-500 w-5 h-5 mr-2'/>
-            <input type={type} placeholder={placeholder} value={formData[name]} onChange={(e)=>setFormData({...formData,[name]:e.target.value})}  className='w-full focus:outline-none text-sm text-gray-700' required/>
+            <Icon className='text-blue-500 w-5 h-5 mr-2' />
+            <input type={isPassword && showPassword ? "text" : type} placeholder={placeholder} value={formData[name]} onChange={(e) => setFormData({ ...formData, [name]: e.target.value })} className='w-full focus:outline-none text-sm text-gray-700' required />
 
             {isPassword && (
-              <button type='button' onClick={()=>setShowPassword((prev)=>(!prev))}  className="ml-2 text-gray-500 hover:text-purple-500 transition-colors">
-                {showPassword ? <EyeOff className='w-5 h-5'/> : <Eye className='w-5 h-5'/>}
+              <button type='button' onClick={() => setShowPassword((prev) => (!prev))} className="ml-2 text-gray-500 hover:text-blue-500 transition-colors">
+                {showPassword ? <EyeOff className='w-5 h-5' /> : <Eye className='w-5 h-5' />}
               </button>
             )}
           </div>
         ))}
 
         <div className="flex items-center">
-          <input type="checkbox" id="rememberMe" checked={rememberMe} onChange={()=>setRememberMe(!rememberMe)} className='h-4 w-4 text-purple-500 focus:ring-purple-400 border-gray-300 rounded' required />
+          <input type="checkbox" id="rememberMe" checked={rememberMe} onChange={() => setRememberMe(!rememberMe)} className='h-4 w-4 text-blue-500 focus:ring-blue-400 border-gray-300 rounded' required />
           <label htmlFor='rememberMe' className='ml-2 block text-sm text-gray-700'>Remember Me</label>
         </div>
 
-        <button type='submit' className={BUTTONCLASSES} disabled={loading}>
+        <button type='submit' className="w-full py-2 px-4 rounded-lg text-white font-semibold flex items-center justify-center space-x-2 transition-all duration-300 transform hover:scale-105 focus:outline-none focus:ring-2 focus:ring-offset-2 bg-gradient-to-br from-blue-500 to-green-500 hover:from-blue-600 hover:to-green-600 focus:ring-blue-500" disabled={loading}>
           {loading ? (
             "Logging In ..."
           ) : (
             <>
-              <LogIn className='w-4 h-4'/>Login
+              <LogIn className='w-4 h-4 mr-2' />Login
             </>
           )}
         </button>
       </form>
       <p className='text-center text-sm text-gray-600 mt-6'>
         Dont Have An Account ?{" "}
-          <button type='button' className='text-purple-600 hover:text-purple-700 hover:underline font-medium transition-colors' onClick={handleSwitchMode}>
-            Sign Up
-          </button>
+        <button type='button' className='text-blue-600 hover:text-blue-700 hover:underline font-medium transition-colors' onClick={handleSwitchMode}>
+          Sign Up
+        </button>
       </p>
     </div>
   );
