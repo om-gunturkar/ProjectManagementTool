@@ -73,7 +73,7 @@ const Dashboard = () => {
           </h1>
           <p className='text-sm text-gray-300 mt-1 ml-7 truncate'>Manage Your Tasks Efficiently</p>
         </div>
-        <button onClick={() => setShowModal(true)} className="bg-blue-500 hover:bg-blue-600 text-white font-semibold py-2 px-4 rounded shadow-lg flex items-center gap-1 transition">
+        <button onClick={() => setShowModal(true)} className="bg-gradient-to-r from-blue-500 via-green-500 to-teal-500 cursor-pointer text-white font-semibold py-2 px-4 rounded shadow-lg flex items-center gap-1 transition">
           <Plus size={18} /> Add New Task
         </button>
       </div>

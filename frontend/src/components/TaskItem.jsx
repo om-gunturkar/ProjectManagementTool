@@ -81,10 +81,10 @@ const TaskItem = ({ task, onRefresh, showCompleteCheckbox, onLogout = true }) =>
           {showCompleteCheckbox && (
             <button
               onClick={handleComplete}
-              className={`${TI_CLASSES.completeBtn} ${isCompleted ? 'text-green-500' : 'text-gray-300'}`}
+              className={`${TI_CLASSES.completeBtn} ${isCompleted ? 'text-blue-500' : 'text-gray-300'}`}
             >
               <CheckCircle2
-                className={`${TI_CLASSES.checkboxIconBase} ${isCompleted ? 'fill-green-500' : ''}`}
+                className={`${TI_CLASSES.checkboxIconBase} ${isCompleted ? 'fill-blue-500' : 'text-black'}`}
                 size={18}
               />
             </button>
@@ -92,7 +92,7 @@ const TaskItem = ({ task, onRefresh, showCompleteCheckbox, onLogout = true }) =>
 
           <div className='flex-1 min-w-0'>
             <div className='flex items-baseline gap-2 mb-1 flex-wrap'>
-              <h3 className={`${TI_CLASSES.titleBase} ${isCompleted ? 'text-gray-400 line-through' : 'text-[#2B2B2B]'}`}>
+              <h3 className={`${TI_CLASSES.titleBase} ${isCompleted ? 'text-gray-200 line-through' : 'text-[#ffffff]'}`}>
                 {task.title}
               </h3>
               <span className={`${TI_CLASSES.priorityBadge} ${getPriorityBadgeColor(task.priority)}`}>
@@ -115,7 +115,7 @@ const TaskItem = ({ task, onRefresh, showCompleteCheckbox, onLogout = true }) =>
                   <button
                     key={opt.action}
                     onClick={() => handleAction(opt.action)}
-                    className='w-full px-3 sm:px-4 py-2 text-left text-xs sm:text-sm hover:bg-[#E0F7FF] flex items-center gap-2 transition-all duration-200'
+                    className='w-full px-3 sm:px-4 py-2 text-left text-xs sm:text-sm hover:bg-gray-700 flex items-center gap-2 transition-all duration-200'
                   >
                     {opt.icon}
                     {opt.label}

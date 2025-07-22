@@ -50,9 +50,9 @@ export const baseControlClasses =
     "w-full px-4 py-2.5 border border-green-100 rounded-lg focus:ring-2 focus:ring-green-500 focus:border-green-500 text-sm";
 
 export const priorityStyles = {
-    Low: "bg-green-100 text-green-700 border-green-200",
-    Medium: "bg-green-100 text-green-700 border-green-200",
-    High: "bg-fuchsia-100 text-fuchsia-700 border-fuchsia-200",
+    Low: "bg-[#3A3A3A] text-yellow-700 ",
+    Medium: "bg-[#3A3A3A] text-green-700",
+    High: "bg-[#3A3A3A] text-red-700",
 };
 
 // data/defaultTask.js
@@ -241,7 +241,7 @@ export const CT_CLASSES = {
 export const layoutClasses = {
     container: "p-6 pt-0 min-h-screen overflow-hidden",
     headerWrapper: "flex flex-col md:flex-row justify-between items-start md:items-center mb-8 gap-4",
-    sortBox: "flex items-center justify-between bg-blue-100 p-3 rounded-xl shadow-sm border border-blue-100 w-full md:w-auto ",
+    sortBox: "flex items-center justify-between bg-blue-100 rounded-xl shadow-sm border border-blue-100 w-full md:w-auto ",
     select: "px-3 py-2 border border-blue-100 rounded-lg  focus:ring-2 focus:ring-blue-500 md:hidden text-sm",
     tabWrapper: "hidden md:flex p-3 space-x-1 bg-blue-100 p-1 rounded-lg ml-3",
     tabButton: (active) =>
@@ -265,19 +265,19 @@ export const MENU_OPTIONS = [
 
 // CSS class groups for TaskItem
 export const TI_CLASSES = {
-    wrapper: "group p-4 sm:p-5 rounded-xl shadow-sm bg-white border-l-4 hover:shadow-md transition-all duration-300 border border-green-100",
+    wrapper: "group p-4 sm:p-5 rounded-xl shadow-sm bg-gray-800 border-l-7 hover:shadow-md transition-all duration-300 border-blue-100",
     leftContainer: "flex items-start gap-2 sm:gap-3 flex-1 min-w-0",
-    completeBtn: "mt-0.5 sm:mt-1 p-1 sm:p-1.5 rounded-full hover:bg-green-100 transition-colors duration-300",
+    completeBtn: "mt-0.5 sm:mt-1 p-1 sm:p-1.5 rounded-full hover:bg-blue-200 transition-colors duration-300",
     checkboxIconBase: "w-4 h-4 sm:w-5 sm:h-5",
     titleBase: "text-base sm:text-lg font-medium truncate",
-    priorityBadge: "text-xs px-2 py-0.5 rounded-full shrink-0",
-    description: "text-sm text-gray-500 mt-1 truncate",
-    subtasksContainer: "mt-3 sm:mt-4 space-y-2 sm:space-y-3 bg-green-50/30 p-2 sm:p-3 rounded-lg border border-green-100",
-    progressBarBg: "h-1.5 bg-green-100 rounded-full overflow-hidden",
-    progressBarFg: "h-full bg-gradient-to-r from-fuchsia-500 to-green-600 transition-all duration-300",
+    priorityBadge: "text-xs text-black px-2 py-0.5 rounded-full shrink-0",
+    description: "text-sm text-gray-200 mt-1 truncate",
+    subtasksContainer: "mt-3 sm:mt-4 space-y-2 sm:space-y-3 bg-green-50/30 p-2 sm:p-3 rounded-lg border border-blue-100",
+    progressBarBg: "h-1.5 bg-blue-100 rounded-full overflow-hidden",
+    progressBarFg: "h-full bg-gradient-to-r from-fuchsia-500 to-blue-600 transition-all duration-300",
     rightContainer: "flex flex-col items-end gap-2 sm:gap-3",
-    menuButton: "p-1 sm:p-1.5 hover:bg-green-100 rounded-lg text-gray-500 hover:text-green-700 transition-colors duration-200",
-    menuDropdown: "absolute right-0 mt-1 w-40 sm:w-48 bg-white border border-green-100 rounded-xl shadow-lg z-10 overflow-hidden animate-fadeIn",
+    menuButton: "p-1 sm:p-1.5 hover:bg-[#4A4A4A] rounded-lg text-gray-500 hover:text-gray-200 transition-colors duration-200",
+    menuDropdown: "absolute right-0 mt-1 w-40 sm:w-48 bg-gray-800 border border-blue-500 rounded-xl shadow-lg z-10 overflow-hidden animate-fadeIn",
     dateRow: "flex items-center gap-1.5 text-xs font-medium whitespace-nowrap",
     createdRow: "flex items-center gap-1.5 text-xs text-gray-400 whitespace-nowrap",
 }

@@ -48,7 +48,8 @@ const TaskModal = ({ isOpen, onClose, taskToEdit, onSave, onLogout }) => {
 
     const handleSubmit = useCallback(async (e) => {
         e.preventDefault();
-        if (taskData.dueDate < today) {
+        // Check if dueDate is in the past before proceeding
+        if (taskData.dueDate && taskData.dueDate < today) {
             setError("Due Date cannot be in the past");
             return;
         }
@@ -81,64 +82,67 @@ const TaskModal = ({ isOpen, onClose, taskToEdit, onSave, onLogout }) => {
 
     if (!isOpen) return null;
 
+    // Define dark theme specific base control classes for inputs
+    const darkBaseControlClasses = 'w-full p-2.5 rounded-lg bg-[#3A3A3A] border border-[#4A4A4A] text-white placeholder-gray-500 focus:outline-none focus:ring-2 focus:ring-[#1FA2FF] focus:border-[#1FA2FF] transition-all duration-200';
+
     return (
-        <div className='fixed inset-0 backdrop-blur-sm bg-black/20 z-50 flex items-center justify-center p-4'>
-            <div className='bg-white border border-[#1FA2FF]/20 rounded-xl max-w-md w-full shadow-lg relative p-6 animate-fadeIn'>
+        <div className='fixed inset-0 backdrop-blur-sm bg-black/50 z-50 flex items-center justify-center p-4'>
+            <div className='bg-[#2C2C2C] border border-[#1FA2FF]/20 rounded-xl max-w-md w-full shadow-lg relative p-6 animate-fadeIn'>
                 <div className='flex justify-between items-center mb-6'>
-                    <h2 className='text-2xl font-bold text-[#2B2B2B] flex items-center gap-2'>
+                    <h2 className='text-2xl font-bold text-white flex items-center gap-2'>
                         {taskData.id ? <Save className='text-[#1FA2FF] w-5 h-5' /> :
                             <PlusCircle className='text-[#1FA2FF] w-5 h-5' />}
                         {taskData.id ? 'Edit Task' : 'Add New Task'}
                     </h2>
 
-                    <button onClick={onClose} className='p-2 hover:bg-[#E0F7FF] rounded-lg transition-colors text-gray-500 hover:text-[#1FA2FF]'>
+                    <button onClick={onClose} className='p-2 hover:bg-[#3A3A3A] rounded-lg transition-colors text-gray-400 hover:text-[#1FA2FF]'>
                         <X className='w-5 h-5' />
                     </button>
                 </div>
 
                 <form onSubmit={handleSubmit} className='space-y-4'>
-                    {error && <div className='text-red-500 text-sm bg-red-50 rounded-lg border border-red-100'>{error}</div>}
+                    {error && <div className='text-red-400 text-sm bg-red-900/20 border border-red-700/50 p-2 rounded-lg'>{error}</div>}
                     <div>
-                        <label className='block text-sm font-medium text-gray-700 mb-1'>Task Title</label>
-                        <div className='flex items-center border border-[#1FA2FF]/20 rounded-lg px-3 py-2.5 focus-within:ring-2 focus-within:ring-[#1FA2FF] focus-within:border-[#1FA2FF] transition-all duration-200'>
-                            <input type="text" name="title" required value={taskData.title} onChange={handleChange} className='w-full focus:outline-none text-sm' placeholder='Enter Task Title' />
+                        <label className='block text-sm font-medium text-gray-300 mb-1'>Task Title</label>
+                        <div className='flex items-center rounded-lg focus-within:ring-2 focus-within:ring-[#1FA2FF] focus-within:border-[#1FA2FF] transition-all duration-200'>
+                            <input type="text" name="title" required value={taskData.title} onChange={handleChange} className={`${darkBaseControlClasses} border-none`} placeholder='Enter Task Title' />
                         </div>
                     </div>
 
                     <div>
-                        <label className='flex items-center gap-1 text-sm font-medium text-gray-700 mb-1'>
+                        <label className='flex items-center gap-1 text-sm font-medium text-gray-300 mb-1'>
                             <AlignLeft className='w-4 h-4 text-[#1FA2FF]' />
                             Description
                         </label>
                         <textarea name="description" rows="3"
                             onChange={handleChange} value={taskData.description}
-                            className={baseControlClasses} placeholder='Add Details About Your Tasks'
+                            className={darkBaseControlClasses} placeholder='Add Details About Your Tasks'
                         ></textarea>
                     </div>
 
                     <div className='grid grid-cols-2 gap-4'>
                         <div>
-                            <label className='flex items-center gap-1 text-sm font-medium text-gray-700 mb-1'>
+                            <label className='flex items-center gap-1 text-sm font-medium text-gray-300 mb-1'>
                                 <Flag className='w-4 h-4 text-[#1FA2FF]' />
                                 Priority
                             </label>
-                            <select name="priority" value={taskData.priority} onChange={handleChange} className={`${baseControlClasses} ${priorityStyles[taskData.priority]}`}>
-                                <option>Low</option>
-                                <option>Medium</option>
-                                <option>High</option>
+                            <select name="priority" value={taskData.priority} onChange={handleChange} className={`${darkBaseControlClasses} ${priorityStyles[taskData.priority]}`}>
+                                <option className="bg-[#3A3A3A]">Low</option>
+                                <option className="bg-[#3A3A3A]">Medium</option>
+                                <option className="bg-[#3A3A3A]">High</option>
                             </select>
                         </div>
                         <div>
-                            <label className='flex items-center gap-1 text-sm font-medium text-gray-700 mb-1'>
+                            <label className='flex items-center gap-1 text-sm font-medium text-gray-300 mb-1'>
                                 <Calendar className='w-4 h-4 text-[#1FA2FF]' />
                                 Due Date
                             </label>
-                            <input type="date" name="dueDate" required min={today} value={taskData.dueDate} onChange={handleChange} className={baseControlClasses} />
+                            <input type="date" name="dueDate" required min={today} value={taskData.dueDate} onChange={handleChange} className={darkBaseControlClasses} />
                         </div>
                     </div>
 
                     <div>
-                        <label className='flex items-center gap-1 text-sm font-medium text-gray-700 mb-2'>
+                        <label className='flex items-center gap-1 text-sm font-medium text-gray-300 mb-2'>
                             <CheckCircle className='w-4 h-4 text-[#1FA2FF]' />
                             Status
                         </label>
@@ -147,15 +151,15 @@ const TaskModal = ({ isOpen, onClose, taskToEdit, onSave, onLogout }) => {
                             { val: 'No', label: 'In Progress' }
                             ].map(({ val, label }) => (
                                 <label key={val} className='flex items-center '>
-                                    <input type='radio' name='completed' value={val} checked={taskData.completed === val} onChange={handleChange} className='h-4 w-4 text-[#1FA2FF] focus:ring-[#1FA2FF] border-gray-300 rounded' />
-                                    <span className='ml-2 text-sm text-gray-700'>{label}</span>
+                                    <input type='radio' name='completed' value={val} checked={taskData.completed === val} onChange={handleChange} className='h-4 w-4 text-[#1FA2FF] focus:ring-[#1FA2FF] border-gray-600 rounded bg-[#3A3A3A]' />
+                                    <span className='ml-2 text-sm text-gray-300'>{label}</span>
                                 </label>
                             ))}
                         </div>
                     </div>
 
                     <button type='submit' disabled={loading}
-                        className='w-full bg-gradient-to-r from-[#1FA2FF] via-[#12D8FA] to-[#A6FFCB] text-white font-medium py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 disabled:opacity-50 hover:shadow-md transition-all duration-200'>
+                        className='w-full bg-gradient-to-r from-blue-500 via-green-500 to-teal-500 font-medium py-2.5 px-4 rounded-lg flex items-center justify-center gap-2 disabled:opacity-50 hover:shadow-md transition-all duration-200'>
                         {loading ? 'Saving ...' : (taskData.id ? <>
                             <Save className='w-4 h-4' /> Update task
                         </> : <>

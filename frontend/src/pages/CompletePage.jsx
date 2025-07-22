@@ -58,7 +58,7 @@ const CompletePage = () => {
           <div className={layoutClasses.sortBox}>
             {/* Label */}
             <div className='flex items-center gap-2 text-gray-700 font-medium'>
-              <Filter className='w-4 h-4 text-blue-500' />
+              <Filter className='w-4 h-4 ml-3 text-blue-500' />
               <span className='text-sm'>Sort By :</span>
             </div>
 
